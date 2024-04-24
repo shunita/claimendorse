@@ -1,0 +1,16 @@
+Industry,min code,max code
+"Agriculture, Forestry, Fishing, and Hunting, and Mining",10,560
+Construction,770,1060
+Manufacturing,1070,4060
+Wholesale Trade,4070,4660
+Retail Trade,4670,6060
+"Transportation and Warehousing, and Utilities     ",6070,6460
+"Transportation and Warehousing, and Utilities     ",570,760
+Information ,6470,6860
+"Finance and Insurance, and Real Estate and Rental and Leasing",6870,7260
+"Professional, Scientific, and Management, and Administrative and Waste Management Services",7270,7790
+"Educational Services, and Health Care and Social Assistance",7860,8470
+"Arts, Entertainment, and Recreation, and Accommodation and Food Services",8560,8690
+"Other Services, Except Public Administration",8770,9290
+Public Administration,9370,9590
+Military,9670,9890

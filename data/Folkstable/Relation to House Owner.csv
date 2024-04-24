@@ -1,0 +1,19 @@
+Relationship
+00 .Reference person
+01 .Husband/wife
+02 .Biological son or daughter
+03 .Adopted son or daughter
+04 .Stepson or stepdaughter
+05 .Brother or sister
+06 .Father or mother
+07 .Grandchild
+08 .Parent-in-law
+09 .Son-in-law or daughter-in-law
+10 .Other relative
+11 .Roomer or boarder
+12 .Housemate or roommate
+13 .Unmarried partner
+14 .Foster child
+15 .Other nonrelative
+16 .Institutionalized group quarters population
+17 .Noninstitutionalized group quarters population
