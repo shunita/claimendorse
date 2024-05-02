@@ -4,18 +4,6 @@ import sys
 
 from ClaimEndorseFunctions import *
 
-job_list_orig = ["Academic researcher", "Cloud infrastructure engineer", "Blockchain", "Data or business analyst",
-                 "Data scientist or machine learning specialist",
-                 "Database administrator", "Designer", "Developer, back-end",
-                 "Developer, desktop or enterprise applications", "Developer, embedded applications or devices",
-                 "Developer, front-end", "Developer, full-stack", "Developer, game or graphics",
-                 "Developer, mobile",
-                 "Developer, QA or test", "DevOps specialist",
-                 "Educator", "Engineer, data", "Engineer, site reliability", "Engineering manager",
-                 "Marketing or sales professional", "Product manager", "Project manager",
-                 "Scientist", "Senior Executive (C-Suite, VP, etc.)", "Student", "System administrator",
-                 "Security professional"]
-
 
 def value_cleaning_helper(x, old_vals_to_new_vals):
     if x in old_vals_to_new_vals:
