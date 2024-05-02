@@ -2,7 +2,7 @@
 
 This repository contains the implementation and experimental evaluation for the paper "Finding Convincing Views to Endorse a Claim", submitted to VLDB 2025.
 
-##Setup:
+## Setup:
 1. Create a conda or pip environment on that server with the requirements.txt file.
 1. Download the dataset files from https://shorturl.at/AKN67 and place them under the matching directories in data/\<Dataset name\>.
 1. Install postgresql on a unix server.
@@ -15,18 +15,16 @@ This repository contains the implementation and experimental evaluation for the 
    1. Adjust the aggregation function (AGG_TYPE), aggregation attribute (TARGET_ATTR) and 
    group-by attribute (GRP_ATTR), and population groups (in COMPARE_LIST) as needed.
 
-Edit one of the following files (based on the dataset choice): ACS_Experimenting.py, SO_Experimenting.py or FlightLarge_Experimenting.py.
+1. Edit one of the following files (based on the dataset choice): ```ACS_Experimenting.py```, ```SO_Experimenting.py``` or ```FlightLarge_Experimenting.py```.
 The next instructions are for SO_Experimenting.py but are very similar for the other datasets.
 
-Select the experiment you would like to run and uncomment the matching lines:
+1. Select the experiment you would like to run and uncomment the matching lines:
+   * To run all prioritization methods for a given query - uncomment the lines under "main quality experiment".
+   * To run the sensitivity to number of tuples experiment - uncomment the lines under "num tuples experiment".
+   * To run the sensitivity to number of columns experiment - uncomment the lines under "num columns experiment".
+   * To run a predicate-level search (slower) - uncomment the lines under "Predicate level".
 
-* To run all prioritization methods for a given query - uncomment the lines under "main quality experiment".
-* To run the sensitivity to number of tuples experiment - uncomment the lines under "num tuples experiment".
-* To run the sensitivity to number of columns experiment - uncomment the lines under "num columns experiment".
-* To run a predicate-level search (slower) - uncomment the lines under "Predicate level".
-
-Finally, run:
-```python SO_Experimenting.py.```
+1. Finally, run: ```python SO_Experimenting.py.``` (Or another file based on the choice of dataset).
 
 ## Generating figures
 In ```create_figures.py```, uncomment the lines for the specific figure you would like to create, based on the output of experiments you have run.
