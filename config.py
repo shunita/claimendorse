@@ -3,15 +3,12 @@ from constants import *
 import utils
 
 RUN_ACS7 = True
-RUN_CHICAGO = False
 RUN_SO = False
 RUN_FLIGHTS = False
-RUN_COMPAS = False
 
 RUN_ACTUAL_CP = True
-CREATE_FIGURES = False  #chicago is not ready for creating figures
 MAX_ATOMS = 2
-STOP_AT_TIME = None #60*20  # 20 minutes
+STOP_AT_TIME = None
 REMOVE_NULL_PREDICATES = True
 PVALUE_FILTER = False
 USE_SQL = True
@@ -52,29 +49,7 @@ if RUN_ACS7:
     GROUP_SIZE_FILTER_THRESHOLD = 30  # for filtering attr combinations in advance
     OUTPUT_DIR = os.path.join(DATA_PATH, "results")
     QUERY_DESC = "F_gt_M"
-    # if SAMPLE_SIZE is not None:
-    #     OUTPUT_PATH = os.path.join(
-    #         OUTPUT_DIR,
-    #         "sampling",
-    #         f"{DATABASE_NAME}_{AGG_TYPE}_{MAX_ATOMS}atoms_F_gt_M_{SORT_BY.replace(' ', '_')}{SAMPLE_STR}_guided{ITER_INDEX}.csv")
-    # else:
-    #     OUTPUT_PATH = os.path.join(
-    #         OUTPUT_DIR,
-    #         f"{DATABASE_NAME}_{AGG_TYPE}_{MAX_ATOMS}atoms_F_gt_M_{SORT_BY.replace(' ', '_')}{SAMPLE_STR}_guided{ITER_INDEX}.csv")
 
-####################### Chicago Config #################################
-if RUN_CHICAGO:
-    DATA_PATH = "data/chicago_crime"
-    DATAFRAME_PATH = "data/chicago_crime/chicago_to_DB.csv"
-    DATABASE_NAME = "ChicagoDB"
-    GRP_ATTR = "District"
-    TARGET_ATTR = "Number of Crimes"
-    COMPARE_LIST = [utils.less_than_cmp, 8, 24]  # 8, 24 are districts
-    AGG_TYPE = 'count'
-    MIN_GROUP_SIZE_SQL = 30  # for filtering the returned predicates.
-    GROUP_SIZE_FILTER_THRESHOLD = 30  # for filtering attr combinations in advance
-    OUTPUT_DIR = os.path.join(DATA_PATH, "results")
-    QUERY_DESC = "district8_lt_district24"
 
 ####################### Stack Overflow Config #################################
 if RUN_SO:
@@ -109,9 +84,6 @@ if RUN_FLIGHTS:
                    'ORIGIN_COUNTRY', 'DEST_AIRPORT_CODE', 'DEST_AIRPORT', 'DEST_CITY', 'DEST_STATE', 'DEST_COUNTRY',
                    'CANCELLATION_REASON']
     DATABASE_NAME = "flights_large"
-    #TARGET_ATTR = "ARRIVAL_DELAY"
-    #GRP_ATTR = "AIRLINE"
-    #COMPARE_LIST = [utils.less_than_cmp, 'UA', 'AA']
     TARGET_ATTR = 'DEPARTURE_DELAY'
     GRP_ATTR = 'DAY_OF_WEEK'
     COMPARE_LIST = [utils.less_than_cmp, 1, 6] # 1- monday, 6- saturday
@@ -120,23 +92,7 @@ if RUN_FLIGHTS:
     MIN_GROUP_SIZE_SQL = 5  # for filtering the returned predicates.
     GROUP_SIZE_FILTER_THRESHOLD = 0  # for filtering attr combinations in advance
     OUTPUT_DIR = os.path.join(DATA_PATH, "results")
-    # QUERY_DESC = "AA_gt_UA"
-    QUERY_DESC = f"{GRP_ATTR}_{COMPARE_LIST[2]}_gt_{COMPARE_LIST[1]}"
-
-####################### COMPAS Config #################################
-if RUN_COMPAS:
-    DATA_PATH = "data/compas"
-    DATAFRAME_PATH = "data/compas/compas-scores-two-years.csv"
-    STRING_COLS = [] # TODO: update before using regression
-    DATABASE_NAME = "compas"
-    TARGET_ATTR = "two_year_recid"
-    GRP_ATTR = "race"
-    COMPARE_LIST = [utils.less_than_cmp, 'Caucasian', 'African-American']#, 'Caucasian']
-    AGG_TYPE = 'mean'
-    MIN_GROUP_SIZE_SQL = 5  # for filtering the returned predicates.
-    GROUP_SIZE_FILTER_THRESHOLD = 0  # for filtering attr combinations in advance
-    OUTPUT_DIR = os.path.join(DATA_PATH, "results")
-    QUERY_DESC = "black_gt_white"
+    QUERY_DESC = f"{GRP_ATTR}_Sat_gt_Mon"
 
 
 ############################# output path ###############################
