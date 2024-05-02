@@ -26,8 +26,6 @@ MIN_SUBSET_SIZE = 8
 COUNT_FILTERED_OUT_BY_SIZE = {"x": 0}
 TIME_ANOVA_CALCULATION = {"x": datetime.timedelta(seconds=0)}
 
-CHATGPT_MODEL_STRING = "gpt-3.5-turbo"
-
 
 def isNaN(value):
     return value != value
@@ -1793,30 +1791,6 @@ def sensitivity_to_k(k_values, df, exclude_list, is_numeric, trans_dict, referen
                 num_groups_over100, num_groups_over500)
 
 
-def randomize_queries(number_of_queries, attributes, numeric_attrs, df, target_attr, agg_func=None):
-    # choose a group attribute (numeric attrs are harder to support. so for now we don't choose them)
-    attributes = [a for a in attributes if a not in numeric_attrs]
-    df1 = df.dropna(subset=[target_attr], axis=0)
-    selected_queries = []
-    while len(selected_queries) < number_of_queries:
-        grp_attr = random.choice(attributes)
-        # choose two values
-        possible_values = [x for x in df1[grp_attr].unique() if not utils.safe_is_nan(x)]
-        if len(possible_values) < 2:
-            continue
-        grp1, grp2 = random.sample(possible_values, 2)
-        # determine direction (or select it randomly?)
-        if agg_func is None:
-            agg_func = random.choice(['mean', 'median'])
-        print(grp_attr, grp1, grp2, agg_func)
-        gb = df1.groupby(grp_attr)[target_attr].agg(agg_func)
-        if gb[grp1] > gb[grp2]:
-            compare_list = [utils.less_than_cmp, grp1, grp2]
-        else:
-            compare_list = [utils.less_than_cmp, grp2, grp1]
-        selected_queries.append((grp_attr, compare_list, agg_func))
-    return selected_queries
-
 
 def run_multiple_methods_for_query(target_attr, grp_attr, compare_list, agg_type,
                                    df, exclude_list, is_numeric, trans_dict, methods, stop_at_recall=False):
@@ -1835,7 +1809,7 @@ def run_multiple_methods_for_query(target_attr, grp_attr, compare_list, agg_type
             # Can't use pre-shuffled order - the attr combinations will be different for different queries.
             sort_by = 'random_shuffle'
         output_path = os.path.join(
-            OUTPUT_DIR, "random_queries",
+            OUTPUT_DIR, query_desc,
             f"{DATABASE_NAME}_{agg_type}_{MAX_ATOMS}atoms_{query_desc}_{method.replace(':', '')}_guided.csv")
         res_df, preprocessing_time = run_cherrypicking(df, exclude_list, is_numeric, trans_dict, METRICS_SUBSET,
                                                        output_path, "my_table", sort_by, method_sample, start,
