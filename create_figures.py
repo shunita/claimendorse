@@ -376,24 +376,6 @@ def sensitivity_to_k(file_path_template, serial_k_path_template, sampling_file_p
     plt.savefig(os.path.join(OUTPUT_DIR, output_fname), format="pdf")
 
 
-def analyze_random_query(file_path_template, methods):
-
-    reference_file = file_path_template.format(method="original_order")
-    metric_to_time = {}
-    for method in methods:
-        metric_to_time[method] = find_time_until_specific_score_recall(file_path_template.format(method=method),
-                                                                       reference_file, threshold=0.95,
-                                                                       score_name_subset=[DF_METRICS_AVERAGE])[DF_METRICS_AVERAGE]
-    randomized_methods = {'random_shuffle': 'Random order',
-                          '0.01sample': '1% sample guided'}
-    for prefix in randomized_methods:
-        keys = [k for k in metric_to_time if k.startswith(prefix)]
-        avg_result = np.mean([metric_to_time[k] for k in keys])
-        for k in keys:
-            del metric_to_time[k]
-        metric_to_time[f"{randomized_methods[prefix]}({len(keys)})"] = avg_result
-    print(metric_to_time)
-
 
 
 if __name__ == '__main__':
@@ -408,15 +390,7 @@ if __name__ == '__main__':
     #flights_exp(metrics, "sample_size")
     #flights_exp(metrics, "main")
     #flights_exp([], "table_time_until_recall")
-    # test_for_noise_in_random_shuffle(DF_METRICS_AVERAGE)
-
-    #analyze_random_query("data/Folkstable/SevenStates/results/random_queries/ACS7_numeric_mean_2atoms_MAR_3_gt_1_{method}_guided.csv",
-    #                     #"data/SO/results/random_queries/stack_overflow_median_2atoms_Indian_gt_I don''t know_{method}_guided.csv",
-    #                     methods=['ALL_TOP_K_MERGED', 'ALL_TOP_K_SERIAL',
-    #                              '0.01sample1', '0.01sample2', '0.01sample3',
-    #                              'original_order',
-    #                              'random_shuffle1', 'random_shuffle2', 'random_shuffle3'])
-
+  
     #sensitivity_to_k(
     #    file_path_template=os.path.join(OUTPUT_DIR, f'{DATABASE_NAME}_{AGG_TYPE}_{MAX_ATOMS}atoms_{QUERY_DESC}_' + '{method_name}_guided.csv'),
     #    serial_k_path_template=os.path.join(OUTPUT_DIR, 'topk', f'{DATABASE_NAME}_{AGG_TYPE}_{MAX_ATOMS}atoms_{QUERY_DESC}'+'_ALL_TOP_K_SERIAL_K{k}_guided.csv'),
