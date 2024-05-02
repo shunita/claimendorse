@@ -17,13 +17,9 @@ def create_df_with_all_flights_data():
 
 
 
-exclude_list = ["TAIL_NUMBER", "CANCELLED", "ORIGIN_AIRPORT_CODE"]  # this will be heavy for metrics calculation. maybe also flight number?
+exclude_list = ["TAIL_NUMBER", "CANCELLED", "ORIGIN_AIRPORT_CODE"]
 
-is_numeric = [#'YEAR',
-              #'MONTH',
-              'DAY', 
-              #'DAY_OF_WEEK', 
-              #'FLIGHT_NUMBER',
+is_numeric = ['DAY', 
               'SCHEDULED_DEPARTURE', 'DEPARTURE_TIME',
               'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', 'AIR_TIME', 'DISTANCE',
               'WHEELS_ON', 'TAXI_IN', 'SCHEDULED_ARRIVAL', 'ARRIVAL_TIME', 'ARRIVAL_DELAY', 'AIR_SYSTEM_DELAY',
@@ -68,7 +64,6 @@ if __name__ == '__main__':
     run_multiple_methods_for_query(TARGET_ATTR, GRP_ATTR, COMPARE_LIST, AGG_TYPE,
                                    df, exclude_list, is_numeric, trans_dict, methods, stop_at_recall=False)
 
-    # TODO: revise (from here to the end)
     ########### sample size experiment #####################
     #run_sample_guided_experiment([0.01, 0.05, 0.1], 3, df, exclude_list, is_numeric, trans_dict)
 
