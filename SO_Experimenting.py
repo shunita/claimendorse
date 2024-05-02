@@ -158,9 +158,6 @@ if __name__ == '__main__':
     col_sample_sizes = range(5, 50, 5)
     #num_columns_vs_time_for_full_run(col_sample_sizes, df, exclude_list, is_numeric, translation_dict, methods)
 
-    ############# single metric experiment ######################
-    # single_metric_exp(df, exclude_list, is_numeric, translation_dict)
-
     ################## Predicate Level ##########################
     #pred_level_cherrypicking(df, exclude_list, is_numeric, translation_dict)
 
