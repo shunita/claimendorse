@@ -137,7 +137,13 @@ if __name__ == '__main__':
     # run_random_shuffle_over_full_table(df, exclude_list, is_numeric, translation_dict, 3, "Bsc_gt_Msc")
 
     ####################### main quality experiment #################################
-    result_df = run_cherrypicking_with_config(df, exclude_list, is_numeric, translation_dict)
+    methods = ['random_shuffle:1', 'random_shuffle:2', 'random_shuffle:3', 'original_order', 
+                'ALL_TOP_K_MERGED', 'ALL_TOP_K_SERIAL',
+                '0.01sample:1', '0.01sample:2', '0.01sample:3',
+                '0.05sample:1', '0.05sample:2', '0.05sample:3',
+                '0.10sample:1', '0.10sample:2', '0.10sample:3']
+    run_multiple_methods_for_query(TARGET_ATTR, GRP_ATTR, COMPARE_LIST, AGG_TYPE,
+                                   df, exclude_list, is_numeric, translation_dict, methods, stop_at_recall=False)
 
     ############ sample size experiment ##################
     #run_sample_guided_experiment([0.05, 0.1], 3, df, exclude_list, is_numeric, translation_dict)
