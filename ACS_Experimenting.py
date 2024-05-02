@@ -224,167 +224,10 @@ def combine_highschool_education(df):
     #print(df["combined_education"])
 
 
-def female_greater_than_male_COW(df,pvalue_filter=False):
-    return cherrypick_proportions(df=df, subgroup_attr="SEX", subgroup_vals=["Male", "Female"], groupby_attr="COW",
-                       cmpr_attr="Income>50k", cmpr_list=[less_than_cmp, True],pvalue_filter=pvalue_filter)
-
-
-def female_greater_than_male_generalized_occp(df,pvalue_filter=False):
-    return cherrypick_proportions(df=df, subgroup_attr="SEX", subgroup_vals=["Male", "Female"], groupby_attr="Generalized OCCP",
-                           cmpr_attr="Income>50k", cmpr_list=[less_than_cmp, True],pvalue_filter=pvalue_filter)
-
-
-def female_greater_than_male_generalized_occp_salary(df,pvalue_filter=False):
-    # return multichoice_attribute_cherrypicking(df=df, subgroup_attr="SEX", subgroup_vals=["Male", "Female"], groupby_attr="Generalized OCCP",
-    #                        cmpr_attr="PINCP", cmpr_list=[less_than_cmp, True],pvalue_filter=pvalue_filter)
-    return multichoice_attribute_cherrypicking(df=df, split_attr="Generalized OCCP", grp_attr="SEX",
-                                               cmp_attr="PINCP",
-                                               compare_list=[less_than_cmp, "Male", "Female"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def female_greater_than_male_COW_salary(df,pvalue_filter=False):
-    # return multichoice_attribute_cherrypicking(df=df, subgroup_attr="SEX", subgroup_vals=["Male", "Female"], groupby_attr="Generalized OCCP",
-    #                        cmpr_attr="PINCP", cmpr_list=[less_than_cmp, True],pvalue_filter=pvalue_filter)
-    return multichoice_attribute_cherrypicking(df=df, split_attr="COW", grp_attr="SEX",
-                                               cmp_attr="PINCP",
-                                               compare_list=[less_than_cmp, "Male", "Female"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def black_greater_than_white_generalized_OCCP_salary(df,pvalue_filter=False):
-    return multichoice_attribute_cherrypicking(df=df, split_attr="Generalized OCCP", grp_attr="RAC1P",
-                                               cmp_attr="PINCP",
-                                               compare_list=[less_than_cmp, "White alone", "Black or African American alone"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def black_greater_than_white_COW_salary(df,pvalue_filter=False):
-    return multichoice_attribute_cherrypicking(df=df, split_attr="COW", grp_attr="RAC1P",
-                                               cmp_attr="PINCP",
-                                               compare_list=[less_than_cmp, "White alone", "Black or African American alone"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def highschool_greater_than_bachleors_generalized_OCCP_salary(df,pvalue_filter=False):
-        return multichoice_attribute_cherrypicking(df=df, split_attr="Generalized OCCP", grp_attr="SCHL",
-                                               cmp_attr="PINCP",
-                                               compare_list=[less_than_cmp, "Bachelor's degree","Regular high school diploma"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def bachelors_greater_than_masters_generalized_OCCP_salary(df, pvalue_filter=False):
-    return multichoice_attribute_cherrypicking(df=df, split_attr="Generalized OCCP", grp_attr="SCHL",
-                                               cmp_attr="PINCP",
-                                               compare_list=[less_than_cmp, "Master's degree",
-                                                             "Bachelor's degree"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def full_cherrypicking_highschool_greater_than_bachelors_salary(df,exclude_list, is_numeric,pvalue_filter=False):
-    full_multichoice_attribute_cherrypicking(df=df, grp_attr="combined_education", target_attr="PINCP",
-                                             compare_list=[less_than_cmp, "Bachelor's degree", "Highschool Education Equivalent"],
-                                             aggr_list=mean_list,
-                                             exclude_list=exclude_list, is_numeric=is_numeric, pvalue_filter=pvalue_filter)
-
-
-def female_greater_than_male_EdLevel_salary(df, pvalue_filter=False):
-    return multichoice_attribute_cherrypicking(df=df, split_attr="SCHL", grp_attr="SEX",
-                                               cmp_attr="PINCP",
-                                               compare_list=[less_than_cmp, "Male",
-                                                             "Female"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def female_greater_than_male_generalized_occp_Work_hours(df,pvalue_filter=False):
-    return multichoice_attribute_cherrypicking(df=df, split_attr="Generalized OCCP", grp_attr="SEX",
-                                               cmp_attr="WKHP",
-                                               compare_list=[less_than_cmp, "Male", "Female"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def female_greater_than_male_generalized_occp_Work_Rate(df,pvalue_filter=False):
-    return multichoice_attribute_cherrypicking(df=df, split_attr="Generalized OCCP", grp_attr="SEX",
-                                               cmp_attr="Work Rate",
-                                               compare_list=[less_than_cmp, "Male", "Female"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def female_greater_than_male_COW_Work_Rate(df,pvalue_filter=False):
-    return multichoice_attribute_cherrypicking(df=df, split_attr="COW", grp_attr="SEX",
-                                               cmp_attr="Work Rate",
-                                               compare_list=[less_than_cmp, "Male", "Female"],
-                                               pvalue_filter=pvalue_filter)
-
-
-def full_cherrypicking_female_greater_than_male_salary(df,exclude_list, is_numeric,pvalue_filter=False):
-    full_multichoice_attribute_cherrypicking(df=df, grp_attr="SEX", target_attr="PINCP",
-                                             compare_list=[less_than_cmp, 1, 2],  #[less_than_cmp, "Male", "Female"],
-                                             aggr_list=mean_list,
-                                             exclude_list=exclude_list, is_numeric=is_numeric, pvalue_filter=pvalue_filter)
-
-
-def full_cherrypicking_female_greater_than_male_salary_usingSql_filtering(df,exclude_list, is_numeric,pvalue_filter=False):
-    full_multichoice_attribute_cherrypicking(df=df, grp_attr="SEX", target_attr="PINCP",
-                                             compare_list=[less_than_cmp, 1, 2],
-                                             aggr_list=mean_list,
-                                             exclude_list=exclude_list, is_numeric=is_numeric, pvalue_filter=pvalue_filter, should_usesql=True)
-
-
-def full_cherrypicking_black_greater_than_white_salary(df,exclude_list, is_numeric,pvalue_filter=False):
-    full_multichoice_attribute_cherrypicking(df=df, grp_attr="RAC1P", target_attr="PINCP",
-                                             compare_list=[less_than_cmp, "White alone", "Black or African American alone"],
-                                             aggr_list=mean_list,
-                                             exclude_list=exclude_list, is_numeric=is_numeric, pvalue_filter=pvalue_filter)
-
-
-def full_cherrypicking_female_greater_than_male_salary_SQL(df,exclude_list,pvalue_filter=False):
-    target_attr = "PINCP"
-    attr_list = list(set(df.columns).difference(set(exclude_list + [target_attr])))
-    MI_dict, Anova_dict = create_metrics_dictionary(df, attr_list, target_attr, is_numeric)
-    #sorted_by_anova = sorted(Anova_dict.keys(), key=lambda col: Anova_dict[col][1])
-    ordered=list(df.columns)
-    random.shuffle(ordered)
-    print(ordered)
-    output_path = "data/Folkstable/ACS_mean_female_greater_than_male_baseline.csv"
-    full_multichoice_attribute_cherrypicking_using_SQL(
-        exclude_list=exclude_list, grp_attr="SEX", target_attr="PINCP", compare_list=[less_than_cmp, 1, 2],
-        MI_dict=MI_dict, Anova_dict=Anova_dict, dataset_size=len(df), sorted_columns=ordered, agg_type='mean',
-        pvalue_filter=pvalue_filter, output_path=output_path)
-    #TODO: Might not use the output path twice as parameters, could be an issue for sampling
-    #calculate_metrics_by_time_top_k(output_path, output_path, "Anova_Pvalue")
-
-
-def full_cherrypicking_female_greater_than_male_median_salary_SQL(df, exclude_list, pvalue_filter=False):
-    # This is the most updated wrapper function, take example from this.
-    target_attr = "PINCP"
-    attr_list = list(set(df.columns).difference(set(exclude_list + [target_attr])))
-    MI_dict, Anova_dict = create_metrics_dictionary(df, attr_list, target_attr, is_numeric)
-    sorted_by_anova = sorted(Anova_dict.keys(), key=lambda col: Anova_dict[col][1])
-    output_path = "data/ACS_median_female_greater_than_male.csv"
-    result_df = full_multichoice_attribute_cherrypicking_using_SQL(
-        exclude_list=exclude_list, grp_attr="SEX", target_attr="PINCP", compare_list=[less_than_cmp, 1,2],
-        MI_dict=MI_dict, Anova_dict=Anova_dict, dataset_size=len(df), sorted_columns=sorted_by_anova, agg_type='median',
-        pvalue_filter=pvalue_filter, output_path=output_path)
-    # TODO: Might not use the output path twice as parameters, could be an issue for sampling
-    calculate_metrics_by_time_top_k_single_score(output_path, output_path, "Anova_Pvalue")
-
-
-def full_cherrypicking_women_greater_than_men_median(df, exclude_list, is_numeric, pvalue_filter=False):
-    full_multichoice_attribute_cherrypicking(df=df, grp_attr="SEX", target_attr="PINCP",
-                                             compare_list=[less_than_cmp, 1,2],
-                                             aggr_list=median_list,
-                                             exclude_list=exclude_list, is_numeric=is_numeric,
-                                             pvalue_filter=pvalue_filter)
-
-
 def translate_and_take_prefix(attr, v, trans_dict):
     s = safe_translate((attr, v), trans_dict)
     if type(s) == str and '-' in s:
         return s.split('-')[0]
-
-
-
 
 
 if __name__ == '__main__':
@@ -398,14 +241,6 @@ if __name__ == '__main__':
     #is_numeric = ["AGEP", "WKHP", "PINCP"]
     is_numeric = ['PINCP', "AGEP", 'CITWP', 'JWMNP', 'MARHYP', 'WKHP', 'YOEP', 'JWAP', 'JWDP']
     is_bucket = []
-
-    ############### RUN WITH WRAPPERS EXAMPLES ################
-    # full_cherrypicking_female_greater_than_male_salary(df, exclude_list, is_numeric)
-    # full_cherrypicking_women_greater_than_men_median(df, exclude_list, is_numeric)
-    # full_cherrypicking_female_greater_than_male_median_salary_SQL(df,exclude_list)
-    # full_cherrypicking_female_greater_than_male_salary_SQL(df, both_exclude_lists, is_numeric)
-    # full_cherrypicking_female_greater_than_male_salary(df, both_exclude_lists, is_numeric)
-    # full_cherrypicking_highschool_greater_than_bachelors_salary(df,exclude_list+["SCHL"],is_numeric)
 
     ######### DATA CREATION ################
     # df=get_Multiple_States_2018_All(["CA","TX","FL","NY","PA","IL","OH"])
@@ -431,10 +266,7 @@ if __name__ == '__main__':
     ################## CHERRYPICKING ###################
 
     if RUN_ACTUAL_CP:
-        # if not USE_SQL or SORT_BY in ('REGRESSION', 'ALL_TOP_K_MERGED', 'ALL_TOP_K_SERIAL'):
         df = pd.read_csv(DATAFRAME_PATH, index_col=0)
-        # else:
-        #     df = pd.read_csv(DATAFRAME_PATH, index_col=0, nrows=1)
         trans_dict = make_translation_for_ACS(df.columns)
         allocation_flags = [col for col in df.columns if "allocation flag" in trans_dict[col]]
         exclude_list = both_exclude_lists + allocation_flags
@@ -454,62 +286,19 @@ if __name__ == '__main__':
         methods = ['original_order', 'random_shuffle:1', 'random_shuffle:2', 'random_shuffle:3', 'ALL_TOP_K_MERGED',
                    '0.01sample:1', '0.01sample:2', '0.01sample:3',
                    'ALL_TOP_K_SERIAL']
-        # methods = ['0.01sample:2', '0.01sample:3']
-        #sample_sizes = range(100000, 1000001, 100000)
-        # sample_sizes = [100000, 200000, 300000, 400000, 500000]
+        sample_sizes = range(100000, 1000001, 100000)
         # num_tuples_vs_time_for_full_run(sample_sizes, df, exclude_list, is_numeric, trans_dict, methods,
         #                                 stop_at_recall=True)
 
         ############## num columns experiment #########################
-        #col_sample_sizes = range(10, 101, 10)
-        col_sample_sizes = [30,40,50,60,70,80,90,100]
-        # # TODO repeat each sample size several times (to do an average later over the results)
-        column_subsets = {
-            10: ['POBP', 'SCIENGP', 'MLPH', 'HISP', 'SCIENGRLP', 'DDRS', 'HINS2', 'OCCP', 'INDP', 'MARHT'],
-            20: ['SCHG', 'MARHD', 'POWPUMA', 'OC', 'ESR', 'WRK', 'LANP', 'NWAV', 'SOCP', 'DIVISION', 'ANC2P', 'SFN', 'HINS5', 'SCIENGRLP', 'FHINS5C', 'MIL', 'HINS3', 'DEYE', 'FER', 'NWAB'],
-            30: ['DEAR', 'MSP', 'FHINS3C', 'MLPE', 'GCL', 'POWSP', 'POBP', 'GCR', 'RELP', 'FHINS4C', 'SCIENGP', 'MIGSP', 'NWLK', 'RAC3P', 'MLPA', 'ESP', 'OCCP_grouped', 'RAC1P', 'RACNUM', 'NATIVITY', 'JWMNP', 'ANC2P', 'RAC2P', 'NWAB', 'HINS2', 'SEX', 'AGEP', 'NAICSP', 'GCM', 'NWLA'],
-            40: ['SEX', 'GCM', 'ANC', 'RAC1P', 'NATIVITY', 'MARHD', 'YOEP', 'PUBCOV', 'INDP', 'WAOB', 'HINS7', 'OCCP', 'AGEP', 'FHINS5C', 'ESP', 'LANP', 'MARHW', 'RAC3P', 'DPHY', 'DRAT', 'MIG', 'POWPUMA', 'ANC2P', 'DIVISION', 'MLPCD', 'PAOC', 'SCH', 'NAICSP_grouped', 'LANX', 'FOD1P', 'RACAIAN', 'DOUT', 'JWMNP', 'RACBLK', 'RACSOR', 'NWAV', 'GCL', 'MIGPUMA', 'SFN', 'FER'],
-            50: ['INDP', 'JWTR', 'FHINS5C', 'RACPI', 'ESP', 'RACNUM', 'OCCP', 'FHINS4C', 'DOUT', 'DEAR', 'NWAB', 'DREM', 'SFN', 'MLPK', 'DPHY', 'RACBLK', 'RAC3P', 'HINS5', 'SFR', 'FOD1P', 'MLPE', 'RACASN', 'MIL', 'YOEP', 'MLPH', 'CIT', 'DECADE', 'PUMA', 'QTRBIR', 'MIG', 'RACSOR', 'RELP', 'MARHT', 'HINS7', 'MSP', 'LANP', 'RACWHT', 'NWAV', 'MLPA', 'SPORDER', 'MLPCD', 'MLPB', 'MIGPUMA', 'LANX', 'ANC1P', 'MARHD', 'NOP', 'NAICSP', 'HINS6', 'RACAIAN'],
-            60: ['RAC3P', 'SCHG', 'RACASN', 'HINS6', 'MIGPUMA', 'MIG', 'MLPFG', 'NAICSP_grouped', 'LANP', 'AGEP', 'MLPCD', 'SCH', 'HINS4', 'FOD2P', 'WKL', 'RC', 'MARHM', 'DRIVESP', 'SOCP', 'HISP', 'DREM', 'CITWP', 'DOUT', 'RT', 'POWSP', 'GCL', 'OCCP', 'YOEP', 'GCR', 'INDP', 'RAC1P', 'RACSOR', 'DPHY', 'DECADE', 'JWRIP', 'SCIENGP', 'SFN', 'OC', 'WKW', 'JWDP', 'NWRE', 'RACNH', 'PRIVCOV', 'NWAB', 'NOP', 'FER', 'ESR', 'SPORDER', 'POWPUMA', 'VPS', 'MLPJ', 'RACWHT', 'MLPI', 'RACAIAN', 'MAR', 'MSP', 'MLPB', 'NWLK', 'ANC', 'DRATX'],
-            70: ['MSP', 'GCM', 'RC', 'SEX', 'NATIVITY', 'RACSOR', 'RACASN', 'NWRE', 'NWAB', 'AGEP', 'ENG', 'NWLK', 'HICOV', 'ESP', 'MARHT', 'HINS1', 'GCL', 'MAR', 'MARHYP', 'SFN', 'WKL', 'LANP', 'WAOB', 'WRK', 'DECADE', 'RELP', 'PRIVCOV', 'ANC1P', 'RACBLK', 'OCCP', 'JWRIP', 'MLPI', 'HINS6', 'DDRS', 'DEYE', 'RT', 'ESR', 'MIGSP', 'OC', 'INDP', 'DRATX', 'RACWHT', 'DRAT', 'COW', 'RAC2P', 'MARHM', 'POWSP', 'HINS7', 'SCHG', 'YOEP', 'FHINS4C', 'PAOC', 'NAICSP_grouped', 'MLPA', 'HISP', 'MLPCD', 'MLPFG', 'ANC', 'SFR', 'GCR', 'DIVISION', 'SCIENGRLP', 'MIL', 'JWDP', 'LANX', 'NWLA', 'RACNUM', 'WKW', 'MLPJ', 'NOP'],
-            80: ['MAR', 'MARHT', 'PUBCOV', 'JWMNP', 'VPS', 'RC', 'NWLA', 'ENG', 'DDRS', 'YOEP', 'SCH', 'GCL', 'NATIVITY', 'DIS', 'MIL', 'MIGSP', 'HINS1', 'DECADE', 'DEYE', 'NAICSP_grouped', 'AGEP', 'MLPFG', 'DRAT', 'MLPB', 'HINS5', 'WKHP', 'MLPE', 'ANC', 'POBP', 'OCCP_grouped', 'PAOC', 'PUMA', 'HINS2', 'NWRE', 'MSP', 'SCHL', 'OCCP', 'RAC3P', 'FHINS5C', 'COW', 'RELP', 'SFN', 'MARHD', 'FER', 'RACNH', 'FHINS3C', 'MLPA', 'SOCP', 'OC', 'NWAB', 'MARHM', 'HINS6', 'MARHYP', 'MLPCD', 'ANC2P', 'RACWHT', 'GCR', 'MIG', 'QTRBIR', 'NWLK', 'RACBLK', 'DREM', 'MARHW', 'SCHG', 'FHINS4C', 'HICOV', 'RACAIAN', 'LANP', 'WKW', 'SCIENGP', 'HINS3', 'SEX', 'RT', 'JWAP', 'GCM', 'JWRIP', 'NWAV', 'HINS7', 'MLPH', 'JWDP'],
-            90: ['MIGSP', 'PUBCOV', 'OCCP', 'GCL', 'SOCP', 'SFR', 'MLPA', 'PUMA', 'DOUT', 'RACAIAN', 'JWDP', 'ST', 'MLPB', 'RACWHT', 'MLPH', 'WRK', 'SCHL', 'YOEP', 'MIL', 'SFN', 'HINS2', 'MAR', 'WAOB', 'REGION', 'MLPJ', 'GCR', 'CIT', 'NWLK', 'WKL', 'INDP', 'DPHY', 'HINS3', 'ENG', 'MIG', 'RACPI', 'SCHG', 'MLPK', 'OCCP_grouped', 'JWAP', 'SCH', 'RT', 'POBP', 'HINS6', 'COW', 'JWTR', 'DRIVESP', 'NWLA', 'DECADE', 'OC', 'JWMNP', 'DEAR', 'FOD2P', 'RACNH', 'MLPCD', 'DIVISION', 'RAC2P', 'POWPUMA', 'FHINS3C', 'MLPFG', 'MARHYP', 'MLPI', 'RACBLK', 'MARHD', 'SEX', 'WKHP', 'DRATX', 'NOP', 'RACSOR', 'RC', 'WKW', 'HISP', 'FHINS4C', 'RACNUM', 'MLPE', 'DREM', 'JWRIP', 'SCIENGRLP', 'FOD1P', 'PRIVCOV', 'HINS7', 'HINS4', 'MARHT', 'MARHW', 'ESP', 'ANC2P', 'RELP', 'NWRE', 'CITWP', 'AGEP', 'NAICSP'],
-            100: ['HINS4', 'SOCP', 'GCL', 'FER', 'MLPB', 'FOD1P', 'MARHM', 'MARHYP', 'FHINS5C', 'HINS7', 'MLPFG', 'FHINS4C', 'RAC1P', 'YOEP', 'PAOC', 'PUMA', 'PRIVCOV', 'JWAP', 'FOD2P', 'HISP', 'HINS3', 'DREM', 'ANC1P', 'MLPE', 'RACNUM', 'WKL', 'MLPA', 'OCCP', 'DOUT', 'MARHW', 'SCH', 'SCHG', 'REGION', 'DIVISION', 'DRIVESP', 'SFN', 'RACAIAN', 'ANC2P', 'HINS2', 'ESR', 'MIG', 'MLPK', 'MARHD', 'RACSOR', 'RACASN', 'DRATX', 'HINS5', 'MIL', 'MLPCD', 'DDRS', 'SFR', 'MIGSP', 'POWSP', 'JWTR', 'MLPI', 'ST', 'DEYE', 'SCIENGRLP', 'NWAV', 'JWMNP', 'RACBLK', 'LANX', 'ENG', 'MIGPUMA', 'SCIENGP', 'SEX', 'QTRBIR', 'PUBCOV', 'CITWP', 'HINS6', 'POBP', 'NAICSP', 'RACWHT', 'NWLK', 'RAC2P', 'DEAR', 'NWAB', 'OCCP_grouped', 'DECADE', 'RELP', 'INDP', 'GCR', 'DRAT', 'RT', 'NWRE', 'RC', 'OC', 'AGEP', 'MLPH', 'HINS1', 'NOP', 'ESP', 'HICOV', 'CIT', 'JWDP', 'WKHP', 'MAR', 'DPHY', 'RAC3P', 'MARHT'],
-        }
-        num_columns_vs_time_for_full_run(col_sample_sizes, df, exclude_list, is_numeric, trans_dict, methods, column_subsets=None)
-
-        ############# single metric experiment ######################
-        # single_metric_exp(df, exclude_list, is_numeric, trans_dict)
+        col_sample_sizes = range(10, 101, 10)
+        # num_columns_vs_time_for_full_run(col_sample_sizes, df, exclude_list, is_numeric, trans_dict, methods, column_subsets=None)
 
         ################## sensitivity to k ########################
         # run the serial top k method for each k value.
-        sensitivity_to_k(range(300, 1001, 100),  # K values
+        sensitivity_to_k(range(100, 1001, 100),  # K values
                          df, exclude_list, is_numeric, trans_dict,
                          reference_path="data/Folkstable/SevenStates/results/ACS7_numeric_mean_2atoms_F_gt_M_original_order_guided_reference.csv")
-
-        ################## randomized queries #########################
-        remaining = [c for c in df.columns if c not in exclude_list]
-        target_attr = 'PINCP'
-        #random_queries = randomize_queries(5, remaining, is_numeric, df, target_attr, agg_func='mean')
-        # TODO check if the chosen values make sense.
-        random_queries = [
-            ('OCCP_grouped', [utils.less_than_cmp, 'ENG', 'BUS'], 'mean'),
-            # ('DREM', [utils.less_than_cmp, 2.0, 1.0], 'mean'), # cognitive difficulty, 1-yes, 2-no
-            # ('SCIENGP', [utils.less_than_cmp, 1.0, 2.0], 'mean'), # degree in science: 1- yes 2- no
-            ('ESP', [utils.less_than_cmp, 6.0, 4.0], 'mean'),
-            # 6 - living with non working father, 4- living with 2 non working parents.
-            ('MAR', [utils.less_than_cmp, 1, 3], 'mean'),  # 1- married 3 - divorced
-            ('SCHG', [utils.less_than_cmp, 10.0, 11.0], 'mean'),
-            ('SCH', [utils.less_than_cmp, 1.0, 3.0], 'mean'),
-            ('PRIVCOV', [utils.less_than_cmp, 1, 2], 'mean'),
-            ('NWAB', [utils.less_than_cmp, 3.0, 1.0], 'mean'),
-        ]
-
-
-        # print(random_queries)
-        # for grp_attr, compare_list, agg_type in random_queries:
-        #     run_multiple_methods_for_query(target_attr, grp_attr, compare_list, agg_type,
-        #                                    df, exclude_list, is_numeric, trans_dict, methods, stop_at_recall=True)
 
     end_time = datetime.datetime.now()
 
